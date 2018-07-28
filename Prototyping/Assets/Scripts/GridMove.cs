@@ -57,129 +57,54 @@ class GridMove : MonoBehaviour
                     input.x = 0;
                 }
             }
-            if (input.y != 0 && objectHitForward.collider == null && objectHitBackward.collider == null)//move normally if both are null
+
+            if (input.y != 0)
             {
-                StartCoroutine(PlayerMove(transform));
-            }
-            else if (objectHitForward.collider != null && input.y > 0)//Something in front, moving forward
-            {
-                switch (objectHitForward.collider.tag)
-                {
-                    case "Wall": //Player should bounce back
-                        StartCoroutine(BounceBack(transform));
-                        break;
-                    case "Enemy"://Player should move normally
-                        Debug.Log("Enemy detected, but this isn't implemented yet");
-                        StartCoroutine(PlayerMove(transform));
-                        break;
-                    default:
-                        Debug.Log("Unknown tag detected");
-                        break;
-                }
-            }
-            else if (objectHitForward.collider != null && input.y < 0)//Something in front, moving backward
-            {
-                if (objectHitBackward.collider == null) { StartCoroutine(PlayerMove(transform)); }//If opposite collider is null move normally
-                else
-                {
-                    switch (objectHitBackward.collider.tag)
-                    {
-                        case "Wall": //Player should bounce back
-                            StartCoroutine(BounceBack(transform));
-                            break;
-                        case "Enemy"://Player should move normally
-                            Debug.Log("Enemy detected, but this isn't implemented yet");
-                            StartCoroutine(PlayerMove(transform));
-                            break;
-                        default:
-                            Debug.Log("Unknown tag detected");
-                            break;
-                    }
-                }
-            }
-            else if (objectHitBackward.collider != null && input.y < 0)//Something behind and moving back
-            {
-                switch (objectHitBackward.collider.tag)
-                {
-                    case "Wall":
-                        StartCoroutine(BounceBack(transform));
-                        break;
-                    case "Enemy"://Player should move normally
-                        Debug.Log("Enemy detected, but this isn't implemented yet");
-                        StartCoroutine(PlayerMove(transform));
-                        break;
-                    default:
-                        Debug.Log("Unknown tag detected");
-                        break;
-                }
-            }
-            else if (objectHitBackward.collider != null && input.y > 0)
-            {
-                if (objectHitForward.collider == null) { StartCoroutine(PlayerMove(transform)); }//If opposite collider is null move normally
-                else
-                {
-                    switch (objectHitForward.collider.tag)
-                    {
-                        case "Wall"://Player should bounce back
-                            StartCoroutine(BounceBack(transform));
-                            break;
-                        case "Enemy"://Player should move normally
-                            Debug.Log("Enemy detected, but this isn't implemented yet");
-                            StartCoroutine(PlayerMove(transform));
-                            break;
-                        default:
-                            Debug.Log("Unknown tag detected");
-                            break;
-                    }
-                }
+                ForwardMovement();
             }
 
-            if (input.x != 0 && objectHitLeft.collider == null && objectHitRight.collider == null)
+            if (input.x != 0)
             {
-                StartCoroutine(Sidestep(transform));
+                SideMovement(); 
             }
-            else if (objectHitRight.collider != null && input.x > 0)//Something to right, moving right
+
+            if (input == Vector2.zero && rotation != 0f)
             {
-                switch (objectHitRight.collider.tag)
-                {
-                    case "Wall": //Player should bounce back
-                        StartCoroutine(BounceBack(transform));
-                        break;
-                    case "Enemy"://Player should move normally
-                        Debug.Log("Enemy detected, but this isn't implemented yet");
-                        StartCoroutine(Sidestep(transform));
-                        break;
-                    default:
-                        Debug.Log("Unknown tag detected");
-                        break;
-                }
+                StartCoroutine(Rotate(Vector3.up * 90 * Mathf.Sign(rotation), 0.8f));
             }
-            else if (objectHitRight.collider != null && input.x < 0)//Something to right, moving left
+        }
+    }
+
+    private void SideMovement()
+    {
+        if (objectHitLeft.collider == null && objectHitRight.collider == null)
+        {
+            StartCoroutine(Sidestep(transform));
+        }
+        else if (objectHitRight.collider != null && input.x > 0)//Something to right, moving right
+        {
+            switch (objectHitRight.collider.tag)
             {
-                Debug.Log("To right, move left");
-                if (objectHitLeft.collider == null) { StartCoroutine(Sidestep(transform)); }//If opposite collider is null move normally
-                else
-                {
-                    switch (objectHitLeft.collider.tag)
-                    {
-                        case "Wall": //Player should bounce back
-                            StartCoroutine(BounceBack(transform));
-                            break;
-                        case "Enemy"://Player should move normally
-                            Debug.Log("Enemy detected, but this isn't implemented yet");
-                            StartCoroutine(Sidestep(transform));
-                            break;
-                        default:
-                            Debug.Log("Unknown tag detected");
-                            break;
-                    }
-                }
+                case "Wall": //Player should bounce back
+                    StartCoroutine(BounceBack(transform));
+                    break;
+                case "Enemy"://Player should move normally
+                    Debug.Log("Enemy detected, but this isn't implemented yet");
+                    StartCoroutine(Sidestep(transform));
+                    break;
+                default:
+                    Debug.Log("Unknown tag detected");
+                    break;
             }
-            else if (objectHitLeft.collider != null && input.x < 0)//Something to left moving left
+        }
+        else if (objectHitRight.collider != null && input.x < 0)//Something to right, moving left
+        {
+            if (objectHitLeft.collider == null) { StartCoroutine(Sidestep(transform)); }//If opposite collider is null move normally
+            else
             {
                 switch (objectHitLeft.collider.tag)
                 {
-                    case "Wall":
+                    case "Wall": //Player should bounce back
                         StartCoroutine(BounceBack(transform));
                         break;
                     case "Enemy"://Player should move normally
@@ -191,29 +116,121 @@ class GridMove : MonoBehaviour
                         break;
                 }
             }
-            else if (objectHitLeft.collider != null && input.x > 0)//Something to left, moving right
+        }
+        else if (objectHitLeft.collider != null && input.x < 0)//Something to left moving left
+        {
+            switch (objectHitLeft.collider.tag)
             {
-                if (objectHitRight.collider == null) { StartCoroutine(Sidestep(transform)); }//If opposite collider is null move normally
-                else
+                case "Wall":
+                    StartCoroutine(BounceBack(transform));
+                    break;
+                case "Enemy"://Player should move normally
+                    Debug.Log("Enemy detected, but this isn't implemented yet");
+                    StartCoroutine(Sidestep(transform));
+                    break;
+                default:
+                    Debug.Log("Unknown tag detected");
+                    break;
+            }
+        }
+        else if (objectHitLeft.collider != null && input.x > 0)//Something to left, moving right
+        {
+            if (objectHitRight.collider == null) { StartCoroutine(Sidestep(transform)); }//If opposite collider is null move normally
+            else
+            {
+                switch (objectHitRight.collider.tag)
                 {
-                    switch (objectHitRight.collider.tag)
-                    {
-                        case "Wall"://Player should bounce back
-                            StartCoroutine(BounceBack(transform));
-                            break;
-                        case "Enemy"://Player should move normally
-                            Debug.Log("Enemy detected, but this isn't implemented yet");
-                            StartCoroutine(Sidestep(transform));
-                            break;
-                        default:
-                            Debug.Log("Unknown tag detected");
-                            break;
-                    }
+                    case "Wall"://Player should bounce back
+                        StartCoroutine(BounceBack(transform));
+                        break;
+                    case "Enemy"://Player should move normally
+                        Debug.Log("Enemy detected, but this isn't implemented yet");
+                        StartCoroutine(Sidestep(transform));
+                        break;
+                    default:
+                        Debug.Log("Unknown tag detected");
+                        break;
                 }
             }
-            else if (input == Vector2.zero && rotation != 0f)
+        }
+    }
+
+    private void ForwardMovement()
+    {
+        if (objectHitForward.collider == null && objectHitBackward.collider == null)//move normally if both are null
+        {
+            StartCoroutine(PlayerMove(transform));
+        }
+        else if (objectHitForward.collider != null && input.y > 0)//Something in front, moving forward
+        {
+            switch (objectHitForward.collider.tag)
             {
-                StartCoroutine(Rotate(Vector3.up * 90 * Mathf.Sign(rotation), 0.8f));
+                case "Wall": //Player should bounce back
+                    StartCoroutine(BounceBack(transform));
+                    break;
+                case "Enemy"://Player should move normally
+                    Debug.Log("Enemy detected, but this isn't implemented yet");
+                    StartCoroutine(PlayerMove(transform));
+                    break;
+                default:
+                    Debug.Log("Unknown tag detected");
+                    break;
+            }
+        }
+        else if (objectHitForward.collider != null && input.y < 0)//Something in front, moving backward
+        {
+            if (objectHitBackward.collider == null) { StartCoroutine(PlayerMove(transform)); }//If opposite collider is null move normally
+            else
+            {
+                switch (objectHitBackward.collider.tag)
+                {
+                    case "Wall": //Player should bounce back
+                        StartCoroutine(BounceBack(transform));
+                        break;
+                    case "Enemy"://Player should move normally
+                        Debug.Log("Enemy detected, but this isn't implemented yet");
+                        StartCoroutine(PlayerMove(transform));
+                        break;
+                    default:
+                        Debug.Log("Unknown tag detected");
+                        break;
+                }
+            }
+        }
+        else if (objectHitBackward.collider != null && input.y < 0)//Something behind and moving back
+        {
+            switch (objectHitBackward.collider.tag)
+            {
+                case "Wall":
+                    StartCoroutine(BounceBack(transform));
+                    break;
+                case "Enemy"://Player should move normally
+                    Debug.Log("Enemy detected, but this isn't implemented yet");
+                    StartCoroutine(PlayerMove(transform));
+                    break;
+                default:
+                    Debug.Log("Unknown tag detected");
+                    break;
+            }
+        }
+        else if (objectHitBackward.collider != null && input.y > 0)
+        {
+            if (objectHitForward.collider == null) { StartCoroutine(PlayerMove(transform)); }//If opposite collider is null move normally
+            else
+            {
+                switch (objectHitForward.collider.tag)
+                {
+                    case "Wall"://Player should bounce back
+                        StartCoroutine(BounceBack(transform));
+                        break;
+                    case "Enemy"://Player should move normally
+                        Debug.Log("Enemy detected, but this isn't implemented yet");
+                        StartCoroutine(PlayerMove(transform));
+                        break;
+                    default:
+                        Debug.Log("Unknown tag detected");
+                        break;
+                }
             }
         }
     }
