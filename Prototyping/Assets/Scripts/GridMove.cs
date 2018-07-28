@@ -27,7 +27,7 @@ class GridMove : MonoBehaviour
     private float factor;
     private float rotation;
 
-    //TODO: Raycast hits on enemies count as collisions and trigger battle.
+    //TODO: Rotating player touches enemy collider
     public void Update()
     {
         Vector3 forward = transform.TransformDirection(Vector3.forward);
