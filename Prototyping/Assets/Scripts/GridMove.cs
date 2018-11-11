@@ -12,7 +12,6 @@ class GridMove : MonoBehaviour
         Vertical
     };
     private Orientation gridOrientation = Orientation.Horizontal;
-    private bool correctDiagonalSpeed = true;
     private Vector2 input;
     private bool isMoving = false;
     private Vector3 startPosition;
@@ -24,10 +23,9 @@ class GridMove : MonoBehaviour
     RaycastHit objectHitLeft;
     RaycastHit objectHitRight;
     private float t;
-    private float factor;
+    private float factor = 1f;
     private float rotation;
-
-    //TODO: Rotating player touches enemy collider
+    
     public void Update()
     {
         Vector3 forward = transform.TransformDirection(Vector3.forward);
@@ -86,6 +84,7 @@ class GridMove : MonoBehaviour
             switch (objectHitRight.collider.tag)
             {
                 case "Wall": //Player should bounce back
+                    Debug.Log("Wall");
                     StartCoroutine(BounceBack(transform));
                     break;
                 case "Enemy"://Player should move normally
@@ -169,7 +168,7 @@ class GridMove : MonoBehaviour
                     StartCoroutine(BounceBack(transform));
                     break;
                 case "Enemy"://Player should move normally
-                    Debug.Log("Enemy detected, but this isn't implemented yet");
+                    Debug.Log("Enemy detected");
                     StartCoroutine(PlayerMove(transform));
                     break;
                 default:
@@ -268,14 +267,6 @@ class GridMove : MonoBehaviour
                 startPosition.y + System.Math.Sign(input.y) * gridSize, startPosition.z);
         }
 
-        if (allowDiagonals && correctDiagonalSpeed && input.x != 0 && input.y != 0)
-        {
-            factor = 0.7071f;
-        }
-        else
-        {
-            factor = 1f;
-        }
         while (t < 1f)
         {
             t += Time.deltaTime * (moveSpeed / gridSize) * factor;
