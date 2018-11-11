@@ -4,25 +4,13 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class EnemyCollisionEncounter : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
+    [SerializeField] List<GameObject> enemies;
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.CompareTag("Player")) {
             //TODO: Play scene header animation
-
+            DungeonManager.CurrentEncounterEnemies = enemies;
             //Load the battle scene
-            DungeonManager.LoadScene(1);
+            DungeonManager.StartEngagement(1);
         }
     }
 }
