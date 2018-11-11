@@ -13,7 +13,7 @@ class GridMove : MonoBehaviour
     };
     private Orientation gridOrientation = Orientation.Horizontal;
     private Vector2 input;
-    private bool isMoving = false;
+    public bool isMoving = false;
     private Vector3 startPosition;
     private Vector3 endPosition;
     private Quaternion startRotation;
@@ -25,7 +25,7 @@ class GridMove : MonoBehaviour
     private float t;
     private float factor = 1f;
     private float rotation;
-    
+
     public void Update()
     {
         Vector3 forward = transform.TransformDirection(Vector3.forward);
@@ -246,6 +246,7 @@ class GridMove : MonoBehaviour
         }
         transform.rotation = toAngle;
         isMoving = false;
+        DungeonManager.SavePlayerPosition(gameObject.transform.position, gameObject.transform.rotation);
         yield return 0;
     }
 
@@ -275,6 +276,7 @@ class GridMove : MonoBehaviour
         }
 
         isMoving = false;
+        DungeonManager.SavePlayerPosition(gameObject.transform.position, gameObject.transform.rotation);
         yield return 0;
     }
 
@@ -319,6 +321,7 @@ class GridMove : MonoBehaviour
         }
 
         isMoving = false;
+        DungeonManager.SavePlayerPosition(gameObject.transform.position, gameObject.transform.rotation);
         yield return 0;
     }
 }

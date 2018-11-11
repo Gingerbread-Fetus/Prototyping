@@ -20,10 +20,9 @@ public class EnemyCollisionEncounter : MonoBehaviour {
         if (other.gameObject.CompareTag("Player"))
         {
             //TODO: Play scene header animation
-            //TODO: Make scene loading handled by the dungeon manager
 
             //Load the battle scene
-            SceneManager.LoadScene(1);
+            DungeonManager.LoadScene(1);
         }
     }
 }
