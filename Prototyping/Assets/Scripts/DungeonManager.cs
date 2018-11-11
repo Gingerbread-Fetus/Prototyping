@@ -7,7 +7,7 @@ public class DungeonManager : MonoBehaviour {
 
     public static DungeonManager instance = null;
 
-    public static Vector3 storedPos;
+    public static Vector3 storedPos = new Vector3(1.5f, 0.5f, 0.5f);
     public static Quaternion storedRot;
     
 
@@ -48,5 +48,13 @@ public class DungeonManager : MonoBehaviour {
         storedRot = playerRot;
         //Debug.Log("Rotation: " + storedRot);
         //Debug.Log("Position: " + storedPos);
+    }
+
+    public static Vector3 GetPlayerPosition() {
+        return storedPos;
+    }
+
+    public static Quaternion GetPlayerRotation() {
+        return storedRot;
     }
 }
