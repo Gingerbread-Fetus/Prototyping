@@ -7,7 +7,7 @@ public class DungeonManager : MonoBehaviour {
 
     public static DungeonManager instance = null;
 
-    public static Vector3 storedPos = new Vector3(1.5f, 0.5f, 0.5f);
+    public static Vector3 storedPos = new Vector3(0, 0.5f, 0);
     public static Quaternion storedRot;
     
 
