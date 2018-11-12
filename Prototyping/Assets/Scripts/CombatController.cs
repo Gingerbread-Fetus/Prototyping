@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public class CombatController : MonoBehaviour {
     public void Attack() {
+        Debug.Log(DungeonManager.CurrentEncounterEnemies[0]);
         if (DungeonManager.CurrentEncounterEnemies[0].GetComponent<clsEnemyStandard>().TakeDamage(1))
             DungeonManager.CurrentEncounterEnemies.Remove(DungeonManager.CurrentEncounterEnemies[0]);
         CheckRemainingEnemies();

@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4252567365585978}
   - component: {fileID: 65840799215926876}
   - component: {fileID: 212842699798124390}
-  - component: {fileID: 114913178926479906}
   - component: {fileID: 54257920152567706}
   - component: {fileID: 114901161014968388}
   m_Layer: 0
@@ -38,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1525898065411986}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 5.5, y: 1, z: 7}
+  m_LocalPosition: {x: 5.5, y: 1, z: 6.69}
   m_LocalScale: {x: 1.6984745, y: 2.5555327, z: 0.8317157}
   m_Children: []
   m_Father: {fileID: 0}
@@ -53,7 +52,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
@@ -69,7 +68,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 1.1900434, z: 0.15}
+  m_Size: {x: 0.15, y: 1, z: 0.15}
   m_Center: {x: -0.17, y: 0, z: 0}
 --- !u!114 &114901161014968388
 MonoBehaviour:
@@ -86,18 +85,6 @@ MonoBehaviour:
   attack: 0
   defence: 0
   mana: 0
---- !u!114 &114913178926479906
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1525898065411986}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74ea6d407edf3334c8608cfeba18bea4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemies: []
 --- !u!212 &212842699798124390
 SpriteRenderer:
   m_ObjectHideFlags: 1
