@@ -4,7 +4,7 @@ using UnityEngine;
 class GridMove : MonoBehaviour {
     public bool allowDiagonals = false;
     private float moveSpeed = 3f;
-    private float gridSize = 1f;
+    private float gridSize = 1.33f;
     private enum Orientation {
         Horizontal,
         Vertical
@@ -21,7 +21,7 @@ class GridMove : MonoBehaviour {
     RaycastHit objectHitLeft;
     RaycastHit objectHitRight;
     private float t;
-    private float factor = 1f;
+    private float factor = 1.33f;
     private float rotation;
 
     public void Update() {
@@ -221,7 +221,7 @@ class GridMove : MonoBehaviour {
         if (gridOrientation == Orientation.Horizontal) {
             endPosition = new Vector3(startPosition.x + System.Math.Sign(input.x) * gridSize,
                 startPosition.y, startPosition.z + System.Math.Sign(input.y) * gridSize);
-            endPosition = transform.forward * System.Math.Sign(input.y) + startPosition;
+            endPosition = transform.forward * System.Math.Sign(input.y) * gridSize + startPosition;
         } else {
             endPosition = new Vector3(startPosition.x + System.Math.Sign(input.x) * gridSize,
                 startPosition.y + System.Math.Sign(input.y) * gridSize, startPosition.z);
@@ -266,7 +266,7 @@ class GridMove : MonoBehaviour {
 
         endPosition = new Vector3(startPosition.x + System.Math.Sign(input.x) * gridSize,
                 startPosition.y, startPosition.z + System.Math.Sign(input.y) * gridSize);
-        endPosition = transform.right * System.Math.Sign(input.x) + startPosition;
+        endPosition = transform.right * System.Math.Sign(input.x) * gridSize + startPosition;
 
         while (t < 1f) {
             t += Time.deltaTime * (moveSpeed / gridSize) * factor;
