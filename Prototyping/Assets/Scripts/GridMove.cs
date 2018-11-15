@@ -3,6 +3,8 @@ using UnityEngine;
 
 class GridMove : MonoBehaviour {
     public bool allowDiagonals = false;
+    public float timeBetweenMove;
+    private float timeLastMove;
     private float moveSpeed = 3f;
     private float gridSize = 1.33f;
     private enum Orientation {
@@ -38,26 +40,29 @@ class GridMove : MonoBehaviour {
         if (Physics.Raycast(transform.position, left, out objectHitLeft, 1)) { }
         if (Physics.Raycast(transform.position, right, out objectHitRight, 1)) { }
         if (!isMoving) {
-            input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-            rotation = Input.GetAxis("Turn");
-            if (!allowDiagonals) {
-                if (Mathf.Abs(input.x) > Mathf.Abs(input.y)) {
-                    input.y = 0;
-                } else {
-                    input.x = 0;
+            if (Time.time - timeLastMove > timeBetweenMove) { //prevent double stepping
+                timeLastMove = Time.time;
+                input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+                rotation = Input.GetAxis("Turn");
+                if (!allowDiagonals) {
+                    if (Mathf.Abs(input.x) > Mathf.Abs(input.y)) {
+                        input.y = 0;
+                    } else {
+                        input.x = 0;
+                    }
                 }
-            }
 
-            if (input.y != 0) {
-                ForwardMovement();
-            }
+                if (input.y != 0) {
+                    ForwardMovement();
+                }
 
-            if (input.x != 0) {
-                SideMovement();
-            }
+                if (input.x != 0) {
+                    SideMovement();
+                }
 
-            if (input == Vector2.zero && rotation != 0f) {
-                StartCoroutine(Rotate(Vector3.up * 90 * Mathf.Sign(rotation), 0.8f));
+                if (input == Vector2.zero && rotation != 0f) {
+                    StartCoroutine(Rotate(Vector3.up * 90 * Mathf.Sign(rotation), 0.8f));
+                }
             }
         }
     }

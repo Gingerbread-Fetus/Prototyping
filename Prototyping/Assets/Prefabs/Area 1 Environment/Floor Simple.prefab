@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33361997118451758}
   - component: {fileID: 23096715591982874}
   m_Layer: 0
-  m_Name: SimpleFloor
+  m_Name: Floor Simple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +56,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 8e0aff2af69aa4340be088ee227261de, type: 2}
+  - {fileID: 2100000, guid: aa9bfe1b3e0f8fc45a260904ce97f442, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
