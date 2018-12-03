@@ -11,6 +11,7 @@ public class EnemyCollisionEncounter : MonoBehaviour {
 
             //Takes enemies set in the editor for the encounter and loads them for use from the Battle scene.
             DungeonManager.CurrentEncounterEnemies = enemies;
+            Debug.Log("Enountering " + enemies[0]);
             //Load the battle scene
             DungeonManager.StartEngagement(1);
         }

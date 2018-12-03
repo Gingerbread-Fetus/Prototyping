@@ -7,8 +7,8 @@ public class DungeonManager : MonoBehaviour {
 
     public static DungeonManager instance = null;
 
-    public static Vector3 storedPos = new Vector3(0, 0.5f, 0.33f);
-    public static Quaternion storedRot;
+    public static Vector3 storedPos = new Vector3(0, 0.5f, -3.66f);
+    public static Quaternion storedRot = Quaternion.Euler(0, 180, 0);
 
     public static List<GameObject> CurrentEncounterEnemies;
 
