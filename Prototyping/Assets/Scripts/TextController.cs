@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,29 +8,71 @@ using UnityEngine.UI;
 /// </summary>
 public class TextController : MonoBehaviour {
     //delay time between characters being displayed for slow text read
-    public float ReadTextSpeed;
+    public float ReadTextSpeedDelay;
     private Text text;
-    public void Start() {
+    private int playNextText;
+    public GameObject dungeonManager;
+    public GameObject displayLeft;
+    public GameObject displayRight;
+    public GameObject isTalkingLeft;
+    public GameObject isTalkingRight;
+    public void Awake() {
         text = GameObject.FindGameObjectWithTag("DialogueText").GetComponent<Text>();
     }
     public void SetText(int textPos) {
         Debug.Log("Setting Text with pos: " + textPos);
         switch (textPos) {
-            case 0: text.text =
-                "The Text controller, a controller where the flow of text in the standard" +
-                " dialogue canvas is displayed."; break;
-            case 1: StartCoroutine("ReadText", "String for ReadText being read.."); break;
+            case 0:
+            //reset / close condition
+            text.text = "";
+            this.gameObject.SetActive(false);
+            displayLeft.SetActive(false);
+            displayRight.SetActive(false);
+            isTalkingLeft.SetActive(false);
+            isTalkingRight.SetActive(false);
+            break;
+            //load characters only condition
+            case 1:
+            text.text = "Exciting allegedly blank text space.";
+            displayLeft.SetActive(true);
+            displayRight.SetActive(true);
+            isTalkingLeft.SetActive(true);
+            isTalkingRight.SetActive(true);
+            break;
+            //
+            case 2: playNextText = 3;
+            isTalkingLeft.SetActive(true);
+            isTalkingRight.SetActive(false);
+            text.text = "MINOTAUR: ";
+            StartCoroutine("ReadText", "Do you think we should chase these kids " +
+                "into this dark labyrinth Big Scary Enemy?");
+            break;
+            case 3: playNextText = 0;
+            isTalkingLeft.SetActive(false);
+            isTalkingRight.SetActive(true);
+            text.text = "BSE: ";
+            dungeonManager.GetComponent<DungeonManager>().MoveAllEncounters();
+            StartCoroutine("ReadText", "Absolutely. You go first.");
+            break;
         }
+    }
+
+    public void PlayNextText() {
+        Debug.Log("Mouse down TextController");
+        StopCoroutine("ReadText");
+        text.text = "";
+        SetText(playNextText);
     }
 
     public IEnumerator ReadText(string inText) {
         int inPos = 0;
         while (true) {
-            Debug.Log("inText[" + inPos + "]");
-            Debug.Log(inText[inPos]);
+            //stop at end of string
+            if (inPos >= inText.Length - 1)
+                StopCoroutine("ReadText");
             text.text += inText[inPos];
             inPos++;
-            yield return new WaitForSecondsRealtime(ReadTextSpeed);
+            yield return new WaitForSecondsRealtime(ReadTextSpeedDelay);
         }
     }
 

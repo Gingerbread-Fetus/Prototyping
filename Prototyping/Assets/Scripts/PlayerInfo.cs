@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerInfo : MonoBehaviour {
-    public TextController textController;
+    public GameObject textController;
 
     private void Awake() {
         this.gameObject.transform.position = DungeonManager.GetPlayerPosition();
@@ -11,7 +9,8 @@ public class PlayerInfo : MonoBehaviour {
     }
 
     private void Start() {
-        this.textController.SetText(0);
+        textController.SetActive(true);
+        this.textController.GetComponent<TextController>().SetText(2);
     }
 
 }

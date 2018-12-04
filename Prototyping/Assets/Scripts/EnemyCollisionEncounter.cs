@@ -1,10 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.SceneManagement;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyCollisionEncounter : MonoBehaviour {
     [SerializeField] List<GameObject> enemies;
+    public void MoveInDirection(Vector3 direction) {
+        this.gameObject.transform.Translate(direction * DungeonManager.WORLD_SCALE, Space.World);
+    }
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.CompareTag("Player")) {
             //TODO: Play scene header animation
