@@ -33,8 +33,8 @@ public class DungeonManager : MonoBehaviour {
         } else if (instance != this) {
             Destroy(gameObject);
         }
-
-        DontDestroyOnLoad(gameObject);
+        instance = this;
+        DontDestroyOnLoad(this.gameObject);
     }
 
     public void Start() {
@@ -52,7 +52,8 @@ public class DungeonManager : MonoBehaviour {
     }
 
     public static void StartEngagement(int battleSceneNumber) {
-        SceneManager.LoadScene(battleSceneNumber);
+        SceneManager.LoadScene(battleSceneNumber, LoadSceneMode.Additive);
+        Debug.Log("Started engagement with enemies: " + CurrentEncounterEnemies);
     }
 
     public static void SavePlayerPosition(Vector3 playerPos, Quaternion playerRot) {
@@ -66,5 +67,9 @@ public class DungeonManager : MonoBehaviour {
 
     public static Quaternion GetPlayerRotation() {
         return storedRot;
+    }
+
+    public static List<GameObject> GetEnemies (){
+        return CurrentEncounterEnemies;
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// Handles combat scene interactions.
@@ -8,6 +6,8 @@ using UnityEngine;
 public class CombatController : MonoBehaviour {
 
     public GameObject Pos1, Pos2, Pos3, Pos4, Pos5;
+
+    private bool isSelectingTarget;
 
     void Start() {
         Pos1 = DungeonManager.CurrentEncounterEnemies[0];
@@ -18,9 +18,9 @@ public class CombatController : MonoBehaviour {
     }
 
     public void Attack() {
-        Debug.Log(DungeonManager.CurrentEncounterEnemies[0]);
-        if (DungeonManager.CurrentEncounterEnemies[0].GetComponent<clsEnemyStandard>().TakeDamage(1))
-            DungeonManager.CurrentEncounterEnemies.Remove(DungeonManager.CurrentEncounterEnemies[0]);
+        Debug.Log(DungeonManager.CurrentEncounterEnemies[0].GetComponent<clsEnemyStandard>().health);
+        DungeonManager.CurrentEncounterEnemies[0].GetComponent<clsEnemyStandard>().TakeDamage(1);
+        isSelectingTarget = true;
         CheckRemainingEnemies();
     }
 
