@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class DungeonManager : MonoBehaviour {
 
     public static DungeonManager instance = null;
+    public static bool intro = true;
 
     //Position of where the player is located
     public static Vector3 storedPos = new Vector3(0, 0.5f, -3.66f);
@@ -15,39 +16,49 @@ public class DungeonManager : MonoBehaviour {
 
     //Enemies to be loaded in the Encounter Battle Scene
     public static List<GameObject> CurrentEncounterEnemies;
+    public static EnemyCollisionEncounter CurrentEnemyCollisionEncounter;
 
     public static bool isPlayerTurn;
 
     //Tracks position of all active encounters in the dungeon
-    public static GameObject[] enemyEncounters;
+    public static List<GameObject> enemyEncounters;
 
     public void MoveAllEncounters() {
-        for (int i = 0; i < enemyEncounters.Length; ++i) {
-            enemyEncounters[i].GetComponent<EnemyCollisionEncounter>().MoveInDirection(Vector3.forward);
+        for (int i = 0; i < enemyEncounters.Count; ++i) {
+            enemyEncounters[i].GetComponent<EnemyCollisionEncounter>().MoveInDirection(Vector3.forward * DungeonManager.WORLD_SCALE);
         }
-    }
-
-    private void Awake() {
-        if (instance == null) {
-            instance = this;
-        } else if (instance != this) {
-            Destroy(gameObject);
-        }
-        instance = this;
-        DontDestroyOnLoad(this.gameObject);
     }
 
     public void Start() {
         //Load current enemies for demo
-        enemyEncounters = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] arrEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+        Debug.Log(arrEnemies);
+        enemyEncounters = new List<GameObject>(arrEnemies);
+        Debug.Log(enemyEncounters);
+
     }
 
     //Clear Encounters to load in next set
     public static void ClearEncounters() {
-        enemyEncounters = new GameObject[0];
+        enemyEncounters = null;
     }
 
-    public static void SetEncounters(GameObject[] encounters) {
+    //Clear passed in encounter from the list of enemyEncounters
+    public static void ClearEncounterByIndex(int index) {
+        enemyEncounters[index] = null;
+    }
+
+    public static void ClearEncounterByCurrent() {
+        for (int i = 0; i < enemyEncounters.Count; ++i) {
+            if (enemyEncounters[i].GetComponent<EnemyCollisionEncounter>().Equals(CurrentEnemyCollisionEncounter)) {
+                CurrentEnemyCollisionEncounter.DestroyThisEncounter();
+                Debug.Log("ClearEncounterByCurrent Success.");
+                return;
+            }
+        }
+    }
+
+    public static void SetEncounters(List<GameObject> encounters) {
         enemyEncounters = encounters;
     }
 

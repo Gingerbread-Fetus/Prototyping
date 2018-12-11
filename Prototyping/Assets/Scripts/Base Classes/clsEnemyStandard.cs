@@ -12,6 +12,9 @@ public class clsEnemyStandard : MonoBehaviour {
     public int defence;
     public int mana;
 
+    /// <summary>
+    /// Deducts health by passed value. Returns true if health falls below 0.
+    /// </summary>
     public bool TakeDamage(int value) {
         health -= value;
         if (health <= 0) {

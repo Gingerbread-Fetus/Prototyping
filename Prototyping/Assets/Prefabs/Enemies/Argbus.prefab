@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 23410229593105230}
   - component: {fileID: 102009853329068912}
   m_Layer: 0
-  m_Name: BSENameTag
+  m_Name: ArgbusNameTag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 54117599189911964}
   - component: {fileID: 114040259629350320}
   m_Layer: 0
-  m_Name: BSE
+  m_Name: Argbus
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1755253625566720}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.689, y: 0.796, z: 0.125}
+  m_LocalPosition: {x: 0.33, y: -1.58, z: 0.125}
   m_LocalScale: {x: 0.1, y: 0.2, z: 1}
   m_Children: []
   m_Father: {fileID: 4843803476083876}
@@ -67,8 +67,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1925283747274266}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.244, y: 1.061, z: -11.7159}
-  m_LocalScale: {x: 0.5, y: 0.4, z: 1}
+  m_LocalPosition: {x: -0.146, y: 1.061, z: -5.511}
+  m_LocalScale: {x: 0.17, y: 0.25, z: 1}
   m_Children:
   - {fileID: 4247125084693726}
   m_Father: {fileID: 0}
@@ -134,8 +134,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.01, y: 4, z: 0.1}
-  m_Center: {x: -0.69, y: 0, z: 0}
+  m_Size: {x: 3.66, y: 6.4, z: 0.1}
+  m_Center: {x: -0.21, y: 0, z: 0}
 --- !u!102 &102009853329068912
 TextMesh:
   serializedVersion: 3
@@ -143,20 +143,22 @@ TextMesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1755253625566720}
-  m_Text: "BIG SCARY\n ENEMY"
+  m_Text: 'ARGBUS
+
+'
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
   m_TabSize: 4
-  m_FontSize: 23
+  m_FontSize: 50
   m_FontStyle: 0
   m_RichText: 1
   m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4294967295
 --- !u!114 &114040259629350320
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -168,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21baece10c8f11840bd0af7677d67277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
+  health: 1
   attack: 1
   defence: 1
   mana: 1
@@ -207,7 +209,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d432df15f076fa344b0e76cc66ca19f0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1e4b359e6083c5441aeef3f54c7bcb70, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

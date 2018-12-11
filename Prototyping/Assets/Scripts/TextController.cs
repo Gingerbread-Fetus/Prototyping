@@ -20,7 +20,7 @@ public class TextController : MonoBehaviour {
         text = GameObject.FindGameObjectWithTag("DialogueText").GetComponent<Text>();
     }
     public void SetText(int textPos) {
-        Debug.Log("Setting Text with pos: " + textPos);
+        //Debug.Log("Setting Text with pos: " + textPos);
         switch (textPos) {
             case 0:
             //reset / close condition
@@ -39,7 +39,6 @@ public class TextController : MonoBehaviour {
             isTalkingLeft.SetActive(true);
             isTalkingRight.SetActive(true);
             break;
-            //
             case 2: playNextText = 3;
             isTalkingLeft.SetActive(true);
             isTalkingRight.SetActive(false);
@@ -47,12 +46,15 @@ public class TextController : MonoBehaviour {
             StartCoroutine("ReadText", "Do you think we should chase these kids " +
                 "into this dark labyrinth Big Scary Enemy?");
             break;
-            case 3: playNextText = 0;
+            case 3: playNextText = 4;
             isTalkingLeft.SetActive(false);
             isTalkingRight.SetActive(true);
             text.text = "BSE: ";
-            dungeonManager.GetComponent<DungeonManager>().MoveAllEncounters();
             StartCoroutine("ReadText", "Absolutely. You go first.");
+            break;
+            case 4: playNextText = 0;
+            dungeonManager.GetComponent<DungeonManager>().MoveAllEncounters();
+            SetText(0);
             break;
         }
     }
