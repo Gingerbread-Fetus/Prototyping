@@ -10,6 +10,6 @@ public class EnemyPositionClickTrigger : MonoBehaviour {
 
     public void SetCombatControllerPosition() {
         cc.SetTarget(Position);
-        Debug.Log("SCCP: " + Position);
+        Debug.Log("Targetting position: " + Position);
     }
 }

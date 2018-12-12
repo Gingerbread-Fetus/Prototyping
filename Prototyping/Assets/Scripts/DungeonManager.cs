@@ -31,11 +31,12 @@ public class DungeonManager : MonoBehaviour {
 
     public void Start() {
         //Load current enemies for demo
+        enemyEncounters = new List<GameObject>();
         GameObject[] arrEnemies = GameObject.FindGameObjectsWithTag("Enemy");
-        Debug.Log(arrEnemies);
-        enemyEncounters = new List<GameObject>(arrEnemies);
-        Debug.Log(enemyEncounters);
-
+        for (int i = 0; i < arrEnemies.Length; ++i) {
+            enemyEncounters.Add(arrEnemies[i]);
+        }
+        Debug.Log("DM START:" + enemyEncounters[0]);
     }
 
     //Clear Encounters to load in next set
@@ -45,13 +46,23 @@ public class DungeonManager : MonoBehaviour {
 
     //Clear passed in encounter from the list of enemyEncounters
     public static void ClearEncounterByIndex(int index) {
-        enemyEncounters[index] = null;
+        Destroy(enemyEncounters[index].gameObject);
+        enemyEncounters.RemoveAt(index);
     }
 
     public static void ClearEncounterByCurrent() {
         for (int i = 0; i < enemyEncounters.Count; ++i) {
             if (enemyEncounters[i].GetComponent<EnemyCollisionEncounter>().Equals(CurrentEnemyCollisionEncounter)) {
+                enemyEncounters[i].gameObject.SetActive(false);
+                enemyEncounters.Remove(CurrentEnemyCollisionEncounter.gameObject);
                 CurrentEnemyCollisionEncounter.DestroyThisEncounter();
+                CurrentEnemyCollisionEncounter = null;
+
+                //set player in position
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                player.GetComponent<GridMove>().isMoving = false;
+                player.gameObject.transform.position = GetPlayerPosition();
+                player.gameObject.transform.rotation = GetPlayerRotation();
                 Debug.Log("ClearEncounterByCurrent Success.");
                 return;
             }
@@ -63,8 +74,10 @@ public class DungeonManager : MonoBehaviour {
     }
 
     public static void StartEngagement(int battleSceneNumber) {
+        GameObject.FindGameObjectWithTag("Player").GetComponent<GridMove>().StopAllCoroutines();
+        GameObject.FindGameObjectWithTag("Player").GetComponent<GridMove>().isMoving = true;
         SceneManager.LoadScene(battleSceneNumber, LoadSceneMode.Additive);
-        Debug.Log("Started engagement with enemies: " + CurrentEncounterEnemies);
+        Debug.Log("Started engagement with enemy: " + CurrentEncounterEnemies[0]);
     }
 
     public static void SavePlayerPosition(Vector3 playerPos, Quaternion playerRot) {
@@ -80,7 +93,7 @@ public class DungeonManager : MonoBehaviour {
         return storedRot;
     }
 
-    public static List<GameObject> GetEnemies (){
+    public static List<GameObject> GetEncounterEnemies (){
         return CurrentEncounterEnemies;
     }
 }

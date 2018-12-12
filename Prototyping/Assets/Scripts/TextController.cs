@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 /// <summary>
 /// Controls dialogue positioning onto default speech canvas.
-/// Called from PlayerInfo.cs
+/// Called from PlayerInfo.cs on game start
 /// </summary>
 public class TextController : MonoBehaviour {
     //delay time between characters being displayed for slow text read
@@ -60,7 +60,6 @@ public class TextController : MonoBehaviour {
     }
 
     public void PlayNextText() {
-        Debug.Log("Mouse down TextController");
         StopCoroutine("ReadText");
         text.text = "";
         SetText(playNextText);

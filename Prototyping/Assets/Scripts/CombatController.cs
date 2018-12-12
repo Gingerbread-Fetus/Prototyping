@@ -47,6 +47,9 @@ public class CombatController : MonoBehaviour {
 
     public void SetEnemies(List<GameObject> listEnemies) {
         Debug.Log("Setting enemies: " + listEnemies);
+        for (int i = 0; i < listEnemies.Count; ++i) {
+            Debug.Log("Enemies[" + i + "] == " + listEnemies[i]);
+        }
         enemies = new List<GameObject>();
 
         //enemies = listEnemies;
@@ -85,8 +88,10 @@ public class CombatController : MonoBehaviour {
 
     public void CheckRemainingEnemies() {
         if (enemies.Count == 0) {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
             DungeonManager.ClearEncounterByCurrent();
+            //DungeonManager.ClearEncounterByIndex(0);
+            UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(UnityEngine.SceneManagement.SceneManager.GetSceneAt(1));
+            //UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
     }
 

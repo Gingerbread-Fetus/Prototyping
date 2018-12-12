@@ -13,8 +13,6 @@ public class EnemyCollisionEncounter : MonoBehaviour {
 
             //Takes enemies set in the editor for the encounter and loads them for use from the Battle scene.
             DungeonManager.CurrentEncounterEnemies = enemies;
-            Debug.Log("Enemies: " + enemies);
-            Debug.Log("Enountering " + enemies[0]);
             //Load the battle scene
             DungeonManager.CurrentEnemyCollisionEncounter = this;
             DungeonManager.StartEngagement(1);
@@ -22,6 +20,7 @@ public class EnemyCollisionEncounter : MonoBehaviour {
     }
 
     public void DestroyThisEncounter() {
+        this.gameObject.SetActive(false);
         Destroy(this.gameObject);
     }
 }

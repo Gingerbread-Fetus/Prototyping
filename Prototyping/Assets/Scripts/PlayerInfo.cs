@@ -15,4 +15,11 @@ public class PlayerInfo : MonoBehaviour {
         this.gameObject.transform.position = DungeonManager.GetPlayerPosition();
         this.gameObject.transform.rotation = DungeonManager.GetPlayerRotation();
     }
+
+    public void DestroyMinotaur() {
+        Debug.Log("How to kill the Minotaur:");
+        Destroy(GameObject.Find("Minotaur"));
+        Debug.Log("Destroy: " + !GameObject.Find("Minotaur").gameObject == null);
+        GameObject.Find("Minotaur").SetActive(false);
+    }
 }

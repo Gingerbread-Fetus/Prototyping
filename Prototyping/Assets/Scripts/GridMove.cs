@@ -5,7 +5,7 @@ class GridMove : MonoBehaviour {
     public bool allowDiagonals = false;
     public float timeBetweenMove;
     private float timeLastMove;
-    private float moveSpeed = 3f;
+    private float moveSpeed = 6f;
     private float gridSize = 1.33f;
     private enum Orientation {
         Horizontal,
@@ -23,7 +23,7 @@ class GridMove : MonoBehaviour {
     RaycastHit objectHitLeft;
     RaycastHit objectHitRight;
     private float t;
-    private float factor = 1.33f;
+    private float factor = 1.25f;
     private float rotation;
 
     public void Update() {
