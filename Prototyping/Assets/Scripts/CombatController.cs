@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEditor;
 
 /// <summary>
 /// Handles combat scene interactions.
@@ -9,8 +10,12 @@ public class CombatController : MonoBehaviour {
 
     public GameObject Pos1, Pos2, Pos3, Pos4, Pos5;
     public List<GameObject> enemies;
+    public List<GameObject> DEBUG_ENEMIES;
 
     public Text CombatLog;
+    public GameObject Camera;
+    public Vector3 cameraOffsetPos = new Vector3(0, 1, -1);
+    public Vector3 cameraOffsetRot = new Vector3(11, 0, 0);
 
     private bool isSelectingTarget = false;
     private List<GameObject> listPositions;
@@ -18,6 +23,11 @@ public class CombatController : MonoBehaviour {
     private int targetPosition;
 
     void Start() {
+        Debug.Log("Setting Combat Camera");
+        Camera.transform.SetPositionAndRotation(DungeonManager.storedPos + cameraOffsetPos, Quaternion.Euler(DungeonManager.storedRot * cameraOffsetRot));
+        Camera.GetComponent<Camera>().cullingMask ^= 1 << 9;
+        Debug.Log("To Position: " + DungeonManager.storedPos);
+        //all positions loaded, even if not used could be used to add more enemies mid-encounter
         listPositions = new List<GameObject>();
         listPositions.Add(Pos1);
         listPositions.Add(Pos2);
@@ -28,21 +38,50 @@ public class CombatController : MonoBehaviour {
         SetEnemies(DungeonManager.CurrentEncounterEnemies);
     }
 
+    /// <summary>
+    /// Attack controller. AttackType is set before calling this function.
+    /// </summary>
     public void Attack() {
-        if (!enemies[targetPosition].GetComponent<clsEnemyStandard>().TakeDamage(1)) {
-            CombatLog.text += "\n";
-            CombatLog.text += enemies[targetPosition].name +
-                " took 1 damage. " +
-                enemies[targetPosition].GetComponent<clsEnemyStandard>().health +
-                " remains."
-                ;
-        } else {
-            CombatLog.text += "\n";
-            CombatLog.text += enemies[targetPosition].name + " has been destroyed.";
-            enemies.RemoveAt(targetPosition);
-            listPositions[targetPosition].SetActive(false);
+        switch (attackType) {
+            case 0: Debug.Log("Bork Attack Type. NO Attack taken."); break;
+            case 1:
+                if (!enemies[targetPosition].GetComponent<clsEnemyStandard>().TakeDamage(1)) {
+                    CombatLog.text += "\n";
+                    CombatLog.text += enemies[targetPosition].name +
+                        " took 1 damage. " +
+                        enemies[targetPosition].GetComponent<clsEnemyStandard>().health +
+                        " remains."
+                        ;
+                } else {
+                    CombatLog.text += "\n";
+                    CombatLog.text += enemies[targetPosition].name + " has been destroyed.";
+                    //enemies.RemoveAt(targetPosition);
+                    enemies[targetPosition].SetActive(false);
+                    listPositions[targetPosition].SetActive(false);
+                } break;
+            case 2:
+                if (!enemies[targetPosition].GetComponent<clsEnemyStandard>().TakeDamage(2)) {
+                    CombatLog.text += "\n";
+                    CombatLog.text += enemies[targetPosition].name +
+                        " took 1 damage. " +
+                        enemies[targetPosition].GetComponent<clsEnemyStandard>().health +
+                        " remains."
+                        ;
+                } else {
+                    CombatLog.text += "\n";
+                    CombatLog.text += enemies[targetPosition].name + " has been destroyed.";
+                    //enemies.RemoveAt(targetPosition);
+                    enemies[targetPosition].SetActive(false);
+                    listPositions[targetPosition].SetActive(false);
+                } break;
         }
+        
         CheckRemainingEnemies();
+    }
+
+    //May be used for transformation of the combat log. Trimming excess text, scrolling.
+    public void AddTextToCombatLog(string textToAdd) {
+        return;
     }
 
     public void SetEnemies(List<GameObject> listEnemies) {
@@ -52,13 +91,13 @@ public class CombatController : MonoBehaviour {
         }
         enemies = new List<GameObject>();
 
-        //enemies = listEnemies;
-
         for (int i = 0; i < listEnemies.Count; ++i) {
+            //assign gameobject positioning initials
             GameObject o = (GameObject)Object.Instantiate(listEnemies[i]);
             o.transform.parent = listPositions[i].transform;
             o.transform.position = listPositions[i].transform.position;
-            o.transform.rotation = Quaternion.Euler(0, 180, 0);
+            //o.gameObject.transform.GetChild(0).Rotate(Vector3.up * 180, Space.World);
+            o.transform.rotation = Quaternion.Euler(0, 0, 0);
             enemies.Add(o);
         }
     }
@@ -76,6 +115,8 @@ public class CombatController : MonoBehaviour {
     public void StartTargetting() {
         isSelectingTarget = true;
         //enable highlight on enemy position --------------------------------------
+
+
     }
 
     public void SetTarget(int position) {
@@ -87,7 +128,14 @@ public class CombatController : MonoBehaviour {
     }
 
     public void CheckRemainingEnemies() {
-        if (enemies.Count == 0) {
+        int rem = 0;
+        for(int i = 0; i < enemies.Count; ++i) {
+            if (enemies[i].activeSelf)
+                rem += 1;
+        }
+        if (rem == 0) { //all enemies inactive, could be set flag
+            Debug.Log(rem + " enemies remain.");
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().cullingMask = -1;
             DungeonManager.ClearEncounterByCurrent();
             //DungeonManager.ClearEncounterByIndex(0);
             UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(UnityEngine.SceneManagement.SceneManager.GetSceneAt(1));
@@ -96,11 +144,9 @@ public class CombatController : MonoBehaviour {
     }
 
     public void LoadDebugBattle() {
-        List<GameObject> minPrefabs = new List<GameObject>();
-        for (int i = 0; i < 5; ++i) {
-            minPrefabs.Add((GameObject)Resources.Load("Assets/Prefabs/Enemies/Minotaur.prefab"));
-        }
-        DungeonManager.CurrentEncounterEnemies = minPrefabs;
+        DungeonManager.CurrentEncounterEnemies = DEBUG_ENEMIES;
+        SetEnemies(DEBUG_ENEMIES);
+        Object.Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/BattleSceneBGs/EnvArea1.prefab", typeof(GameObject)));
     }
 }
  

@@ -19,7 +19,7 @@ public class PlayerInfo : MonoBehaviour {
     public void DestroyMinotaur() {
         Debug.Log("How to kill the Minotaur:");
         Destroy(GameObject.Find("Minotaur"));
-        Debug.Log("Destroy: " + !GameObject.Find("Minotaur").gameObject == null);
+        Debug.Log("Destroy: " + GameObject.Find("Minotaur").gameObject == null);
         GameObject.Find("Minotaur").SetActive(false);
     }
 }

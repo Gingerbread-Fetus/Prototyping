@@ -36,10 +36,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4843803476083876}
-  - component: {fileID: 65923500160316474}
   - component: {fileID: 212872529912330986}
-  - component: {fileID: 54117599189911964}
   - component: {fileID: 114040259629350320}
+  - component: {fileID: 65735968233100662}
+  - component: {fileID: 65839122385991790}
+  - component: {fileID: 114994449793197380}
   m_Layer: 0
   m_Name: Argbus
   m_TagString: Enemy
@@ -54,8 +55,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1755253625566720}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.18, y: 0.94, z: 0.125}
-  m_LocalScale: {x: 0.1, y: 0.2, z: 1}
+  m_LocalPosition: {x: 0.2, y: -1.12, z: 0}
+  m_LocalScale: {x: 0.51, y: 0.29, z: 1}
   m_Children: []
   m_Father: {fileID: 4843803476083876}
   m_RootOrder: 0
@@ -68,7 +69,7 @@ Transform:
   m_GameObject: {fileID: 1925283747274266}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -6.49}
-  m_LocalScale: {x: 0.23, y: 0.4, z: 1}
+  m_LocalScale: {x: 0.14, y: 0.25, z: 1}
   m_Children:
   - {fileID: 4247125084693726}
   m_Father: {fileID: 0}
@@ -109,33 +110,30 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!54 &54117599189911964
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1925283747274266}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!65 &65923500160316474
+--- !u!65 &65735968233100662
 BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1925283747274266}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.66, y: 6.4, z: 0.1}
-  m_Center: {x: -0.21, y: 0, z: 0}
+  m_Size: {x: 3.36, y: 1.38, z: 0.1}
+  m_Center: {x: -0.24, y: 2.69, z: 0}
+--- !u!65 &65839122385991790
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1925283747274266}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.62, y: 4.01, z: 0.1}
+  m_Center: {x: 0, y: -1.39, z: 0}
 --- !u!102 &102009853329068912
 TextMesh:
   serializedVersion: 3
@@ -146,13 +144,13 @@ TextMesh:
   m_Text: 'ARGBUS
 
 '
-  m_OffsetZ: 0
+  m_OffsetZ: -0.1
   m_CharacterSize: 1
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
   m_TabSize: 4
-  m_FontSize: 50
+  m_FontSize: 23
   m_FontStyle: 0
   m_RichText: 1
   m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
@@ -170,10 +168,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21baece10c8f11840bd0af7677d67277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlight: {fileID: 0}
   health: 2
   attack: 1
   defence: 1
   mana: 1
+--- !u!114 &114994449793197380
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1925283747274266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1493c1ab7b2030d45b35573e61cb0634, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!212 &212872529912330986
 SpriteRenderer:
   m_ObjectHideFlags: 1

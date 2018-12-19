@@ -38,8 +38,8 @@ GameObject:
   - component: {fileID: 4843803476083876}
   - component: {fileID: 65923500160316474}
   - component: {fileID: 212872529912330986}
-  - component: {fileID: 54117599189911964}
   - component: {fileID: 114040259629350320}
+  - component: {fileID: 114386885586174732}
   m_Layer: 0
   m_Name: BSE
   m_TagString: Enemy
@@ -54,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1755253625566720}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.689, y: 0.796, z: 0.125}
+  m_LocalPosition: {x: -0.689, y: 0.796, z: 0}
   m_LocalScale: {x: 0.1, y: 0.2, z: 1}
   m_Children: []
   m_Father: {fileID: 4843803476083876}
@@ -109,21 +109,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!54 &54117599189911964
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1925283747274266}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!65 &65923500160316474
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -168,10 +153,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21baece10c8f11840bd0af7677d67277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlight: {fileID: 0}
   health: 3
   attack: 1
   defence: 1
   mana: 1
+--- !u!114 &114386885586174732
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1925283747274266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1493c1ab7b2030d45b35573e61cb0634, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!212 &212872529912330986
 SpriteRenderer:
   m_ObjectHideFlags: 1
