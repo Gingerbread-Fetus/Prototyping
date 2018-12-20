@@ -23,8 +23,9 @@ public class CombatController : MonoBehaviour {
     private int targetPosition;
 
     void Start() {
-        Debug.Log("Setting Combat Camera");
-        Camera.transform.SetPositionAndRotation(DungeonManager.storedPos + cameraOffsetPos, Quaternion.Euler(DungeonManager.storedRot * cameraOffsetRot));
+        Debug.Log("Setting Combat Camera to rot :" + DungeonManager.storedRot);
+        Camera.transform.position = DungeonManager.storedPos + cameraOffsetPos;
+        Camera.transform.rotation = Quaternion.Euler(11, DungeonManager.storedRot.y, 0);
         Camera.GetComponent<Camera>().cullingMask ^= 1 << 9;
         Debug.Log("To Position: " + DungeonManager.storedPos);
         //all positions loaded, even if not used could be used to add more enemies mid-encounter
@@ -63,7 +64,7 @@ public class CombatController : MonoBehaviour {
                 if (!enemies[targetPosition].GetComponent<clsEnemyStandard>().TakeDamage(2)) {
                     CombatLog.text += "\n";
                     CombatLog.text += enemies[targetPosition].name +
-                        " took 1 damage. " +
+                        " took 2 damage. " +
                         enemies[targetPosition].GetComponent<clsEnemyStandard>().health +
                         " remains."
                         ;
@@ -98,6 +99,7 @@ public class CombatController : MonoBehaviour {
             o.transform.position = listPositions[i].transform.position;
             //o.gameObject.transform.GetChild(0).Rotate(Vector3.up * 180, Space.World);
             o.transform.rotation = Quaternion.Euler(0, 0, 0);
+            o.GetComponent<LookAtConstant>().target = GameObject.FindGameObjectWithTag("CombatCamera");
             enemies.Add(o);
         }
     }
@@ -136,6 +138,8 @@ public class CombatController : MonoBehaviour {
         if (rem == 0) { //all enemies inactive, could be set flag
             Debug.Log(rem + " enemies remain.");
             GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().cullingMask = -1;
+            clsPlayerInfo.PI_experience += 5;
+            clsPlayerInfo.PI_level += 1;
             DungeonManager.ClearEncounterByCurrent();
             //DungeonManager.ClearEncounterByIndex(0);
             UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(UnityEngine.SceneManagement.SceneManager.GetSceneAt(1));

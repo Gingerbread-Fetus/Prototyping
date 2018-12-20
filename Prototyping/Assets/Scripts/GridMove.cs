@@ -214,7 +214,9 @@ class GridMove : MonoBehaviour {
         }
         transform.rotation = toAngle;
         isMoving = false;
-        DungeonManager.SavePlayerPosition(gameObject.transform.position, gameObject.transform.rotation);
+        DungeonManager.SavePlayerPosition(gameObject.transform.position, gameObject.transform.localEulerAngles);
+        Debug.Log("GridMove rot: " + gameObject.transform.localEulerAngles);
+        
         yield return 0;
     }
 
@@ -239,7 +241,7 @@ class GridMove : MonoBehaviour {
         }
 
         isMoving = false;
-        DungeonManager.SavePlayerPosition(gameObject.transform.position, gameObject.transform.rotation);
+        DungeonManager.SavePlayerPosition(gameObject.transform.position, gameObject.transform.localEulerAngles);
         yield return 0;
     }
 
@@ -280,7 +282,7 @@ class GridMove : MonoBehaviour {
         }
 
         isMoving = false;
-        DungeonManager.SavePlayerPosition(gameObject.transform.position, gameObject.transform.rotation);
+        DungeonManager.SavePlayerPosition(gameObject.transform.position, gameObject.transform.localEulerAngles);
         yield return 0;
     }
 }

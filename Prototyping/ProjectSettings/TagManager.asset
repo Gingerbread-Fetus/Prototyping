@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - DialogueText
   - DungeonManager
+  - UIMainCanvas
+  - CombatCamera
   layers:
   - Default
   - TransparentFX

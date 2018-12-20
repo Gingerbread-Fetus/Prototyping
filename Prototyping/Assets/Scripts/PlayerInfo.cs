@@ -2,6 +2,7 @@
 
 public class PlayerInfo : MonoBehaviour {
     public TextController textController;
+    //public clsPlayerInfo playerInfo;
 
     public void Start() {
         if (DungeonManager.intro) {
@@ -13,7 +14,7 @@ public class PlayerInfo : MonoBehaviour {
 
     private void Awake() {
         this.gameObject.transform.position = DungeonManager.GetPlayerPosition();
-        this.gameObject.transform.rotation = DungeonManager.GetPlayerRotation();
+        this.gameObject.transform.rotation = Quaternion.Euler(DungeonManager.GetPlayerRotation());
     }
 
     public void DestroyMinotaur() {

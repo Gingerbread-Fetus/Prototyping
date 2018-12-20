@@ -345,7 +345,7 @@ GameObject:
   - component: {fileID: 337786383}
   m_Layer: 0
   m_Name: Main Camera
-  m_TagString: Untagged
+  m_TagString: CombatCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1635,6 +1635,8 @@ MonoBehaviour:
   enemies: []
   DEBUG_ENEMIES:
   - {fileID: 1525898065411986, guid: 0e4793c6500c63e46b2a0cb4e7d840a0, type: 2}
+  - {fileID: 1925283747274266, guid: 639dfc0ecc857c84a9d3f32f1a07c784, type: 2}
+  - {fileID: 1925283747274266, guid: 639dfc0ecc857c84a9d3f32f1a07c784, type: 2}
   - {fileID: 1925283747274266, guid: 639dfc0ecc857c84a9d3f32f1a07c784, type: 2}
   - {fileID: 1925283747274266, guid: 639dfc0ecc857c84a9d3f32f1a07c784, type: 2}
   CombatLog: {fileID: 1949906798}

@@ -9,7 +9,7 @@ public class DungeonManager : MonoBehaviour {
 
     //Position of where the player is located
     public static Vector3 storedPos = new Vector3(0, 0.5f, -3.66f);
-    public static Quaternion storedRot = Quaternion.Euler(0, 180, 0);
+    public static Vector3 storedRot = new Vector3(0, 180, 0);
 
     //Size of the tile distance in this dungeon
     public static float WORLD_SCALE = 1.33f;
@@ -62,7 +62,7 @@ public class DungeonManager : MonoBehaviour {
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
                 player.GetComponent<GridMove>().isMoving = false;
                 player.gameObject.transform.position = GetPlayerPosition();
-                player.gameObject.transform.rotation = GetPlayerRotation();
+                player.gameObject.transform.rotation = Quaternion.Euler(GetPlayerRotation());
                 Debug.Log("ClearEncounterByCurrent Success.");
                 return;
             }
@@ -80,7 +80,7 @@ public class DungeonManager : MonoBehaviour {
         Debug.Log("Started engagement with enemy: " + CurrentEncounterEnemies[0]);
     }
 
-    public static void SavePlayerPosition(Vector3 playerPos, Quaternion playerRot) {
+    public static void SavePlayerPosition(Vector3 playerPos, Vector3 playerRot) {
         storedPos = playerPos;
         storedRot = playerRot;
     }
@@ -89,7 +89,7 @@ public class DungeonManager : MonoBehaviour {
         return storedPos;
     }
 
-    public static Quaternion GetPlayerRotation() {
+    public static Vector3 GetPlayerRotation() {
         return storedRot;
     }
 
