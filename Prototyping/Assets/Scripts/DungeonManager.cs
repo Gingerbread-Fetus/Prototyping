@@ -8,7 +8,8 @@ public class DungeonManager : MonoBehaviour {
     public static bool intro = true;
 
     //Position of where the player is located
-    public static Vector3 storedPos = new Vector3(0, 0.5f, -3.66f);
+    //public static Vector3 storedPos = new Vector3(0, 0.5f, -3.66f);
+    public static Vector3 storedPos = new Vector3(0, 0.5f, 0);
     public static Vector3 storedRot = new Vector3(0, 180, 0);
 
     //Size of the tile distance in this dungeon

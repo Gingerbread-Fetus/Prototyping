@@ -6,7 +6,7 @@ class GridMove : MonoBehaviour {
     public float timeBetweenMove;
     private float timeLastMove;
     private float moveSpeed = 6f;
-    private float gridSize = 1.33f;
+    public float gridSize = 1.5f;
     private enum Orientation {
         Horizontal,
         Vertical
@@ -27,18 +27,18 @@ class GridMove : MonoBehaviour {
     private float rotation;
 
     public void Update() {
-        Vector3 forward = transform.TransformDirection(Vector3.forward);
-        Vector3 backward = transform.TransformDirection(-Vector3.forward);
-        Vector3 right = transform.TransformDirection(Vector3.right);
-        Vector3 left = transform.TransformDirection(Vector3.left);
+        Vector3 forward = transform.TransformDirection(Vector3.forward * gridSize);
+        Vector3 backward = transform.TransformDirection(-Vector3.forward * gridSize);
+        Vector3 right = transform.TransformDirection(Vector3.right * gridSize);
+        Vector3 left = transform.TransformDirection(Vector3.left * gridSize);
         Debug.DrawRay(transform.position, forward, Color.green);
         Debug.DrawRay(transform.position, backward, Color.green);
         Debug.DrawRay(transform.position, left, Color.green);
         Debug.DrawRay(transform.position, right, Color.green);
-        if (Physics.Raycast(transform.position, forward, out objectHitForward, 1)) { }
-        if (Physics.Raycast(transform.position, backward, out objectHitBackward, 1)) { }
-        if (Physics.Raycast(transform.position, left, out objectHitLeft, 1)) { }
-        if (Physics.Raycast(transform.position, right, out objectHitRight, 1)) { }
+        if (Physics.Raycast(transform.position, forward, out objectHitForward, 1 * gridSize)) { }
+        if (Physics.Raycast(transform.position, backward, out objectHitBackward, 1 * gridSize)) { }
+        if (Physics.Raycast(transform.position, left, out objectHitLeft, 1 * gridSize)) { }
+        if (Physics.Raycast(transform.position, right, out objectHitRight, 1 * gridSize)) { }
         if (!isMoving) {
             if (Time.time - timeLastMove > timeBetweenMove) { //prevent double stepping
                 timeLastMove = Time.time;
@@ -61,7 +61,7 @@ class GridMove : MonoBehaviour {
                 }
 
                 if (input == Vector2.zero && rotation != 0f) {
-                    StartCoroutine(Rotate(Vector3.up * 90 * Mathf.Sign(rotation), 0.8f));
+                    StartCoroutine(Rotate(Vector3.up * 90 * Mathf.Sign(rotation), 0.4f));
                 }
             }
         }
