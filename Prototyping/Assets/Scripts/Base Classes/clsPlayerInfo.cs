@@ -8,7 +8,7 @@ public class clsPlayerInfo : MonoBehaviour {
 
     public void Awake() {
         //load some initial player values here
-        Debug.Log("Loading Inital clsPlayerInfo stats.");
+        //Debug.Log("Loading inital clsPlayerInfo stats.");
         clsPlayerInfo.PI_attack = 1;
         clsPlayerInfo.PI_defence = 1;
         clsPlayerInfo.PI_experience = 0;

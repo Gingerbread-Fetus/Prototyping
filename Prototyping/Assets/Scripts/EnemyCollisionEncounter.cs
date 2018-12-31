@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemyCollisionEncounter : MonoBehaviour {
     [SerializeField] List<GameObject> enemies;
     public void MoveInDirection(Vector3 direction) {
-        Debug.Log("Gameobject: " + this.gameObject + " is moving: " + direction);
+        //Debug.Log("Gameobject: " + this.gameObject + " is moving: " + direction);
         this.gameObject.transform.Translate(direction, Space.World);
     }
 
@@ -17,7 +17,8 @@ public class EnemyCollisionEncounter : MonoBehaviour {
             DungeonManager.CurrentEncounterEnemies = enemies;
             //Load the battle scene
             DungeonManager.CurrentEnemyCollisionEncounter = this;
-            DungeonManager.StartEngagement(1);
+            this.gameObject.SetActive(false);
+            DungeonManager.StartEngagement(0);
         }
     }
 

@@ -46,13 +46,7 @@ public class CombatController : MonoBehaviour {
         switch (attackType) {
             case 0: Debug.Log("Bork Attack Type. NO Attack taken."); break;
             case 1:
-                if (!enemies[targetPosition].GetComponent<clsEnemyStandard>().TakeDamage(1)) {
-                    CombatLog.text += "\n";
-                    CombatLog.text += enemies[targetPosition].name +
-                        " took 1 damage. " +
-                        enemies[targetPosition].GetComponent<clsEnemyStandard>().health +
-                        " remains."
-                        ;
+                if (!enemies[targetPosition].GetComponent<clsEnemyStandard>().TakeDamage(CalcDamageCC(1))) {
                 } else {
                     CombatLog.text += "\n";
                     CombatLog.text += enemies[targetPosition].name + " has been destroyed.";
@@ -83,6 +77,29 @@ public class CombatController : MonoBehaviour {
     //May be used for transformation of the combat log. Trimming excess text, scrolling.
     public void AddTextToCombatLog(string textToAdd) {
         return;
+    }
+
+
+    public int CalcDamageCC(int attackType) {
+        switch (attackType) {
+            case 0: return 0; break;
+            //Most basic attack type. Damage = Attack - Defence
+            case 1:
+            int def = enemies[targetPosition].GetComponent<clsEnemyStandard>().defence;
+           //Debug.Log("CalcDamageCC attackType " + attackType + " did " +(clsPlayerInfo.PI_attack - def));
+
+            CombatLog.text += "\n";
+            CombatLog.text += enemies[targetPosition].name +
+                " took " + (clsPlayerInfo.PI_attack - def) + " damage. " +
+                enemies[targetPosition].GetComponent<clsEnemyStandard>().health +
+                " hp remains."
+                ;
+
+            enemies[targetPosition].GetComponent<clsEnemyStandard>().health -= clsPlayerInfo.PI_attack - def;
+                return clsPlayerInfo.PI_attack - def;
+            break;
+        }
+        return 0;
     }
 
     public void SetEnemies(List<GameObject> listEnemies) {
@@ -142,7 +159,8 @@ public class CombatController : MonoBehaviour {
             clsPlayerInfo.PI_level += 1;
             DungeonManager.ClearEncounterByCurrent();
             //DungeonManager.ClearEncounterByIndex(0);
-            UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(UnityEngine.SceneManagement.SceneManager.GetSceneAt(1));
+            //UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(UnityEngine.SceneManagement.SceneManager.GetSceneAt(2));
+            UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(UnityEngine.SceneManagement.SceneManager.GetSceneByName("BattleScene"));
             //UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
     }
