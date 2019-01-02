@@ -9,10 +9,10 @@ public class clsPlayerInfo : MonoBehaviour {
     public void Awake() {
         //load some initial player values here
         //Debug.Log("Loading inital clsPlayerInfo stats.");
-        clsPlayerInfo.PI_attack = 1;
+        clsPlayerInfo.PI_attack = 3;
         clsPlayerInfo.PI_defence = 1;
         clsPlayerInfo.PI_experience = 0;
-        clsPlayerInfo.PI_health = 10;
+        clsPlayerInfo.PI_health = 14;
         clsPlayerInfo.PI_level = 0;
         // ----------------------------
     }

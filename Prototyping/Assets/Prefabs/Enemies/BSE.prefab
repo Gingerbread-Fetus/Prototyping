@@ -27,7 +27,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1925283747274266
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,11 +153,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21baece10c8f11840bd0af7677d67277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlight: {fileID: 0}
+  highlight: {fileID: 198201568020894354, guid: 9a44d17a9e2516d48be08a4ecdc23a81,
+    type: 2}
   health: 3
   attack: 1
   defence: 1
   mana: 1
+  enemyName: BSE
 --- !u!114 &114386885586174732
 MonoBehaviour:
   m_ObjectHideFlags: 1

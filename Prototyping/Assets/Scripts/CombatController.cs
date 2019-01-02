@@ -86,7 +86,8 @@ public class CombatController : MonoBehaviour {
             //Most basic attack type. Damage = Attack - Defence
             case 1:
             int def = enemies[targetPosition].GetComponent<clsEnemyStandard>().defence;
-           //Debug.Log("CalcDamageCC attackType " + attackType + " did " +(clsPlayerInfo.PI_attack - def));
+            enemies[targetPosition].GetComponent<clsEnemyStandard>().health -= clsPlayerInfo.PI_attack - def;
+            Debug.Log("CalcDamageCC attackType " + attackType + " did " +(clsPlayerInfo.PI_attack - def));
 
             CombatLog.text += "\n";
             CombatLog.text += enemies[targetPosition].name +
@@ -94,19 +95,21 @@ public class CombatController : MonoBehaviour {
                 enemies[targetPosition].GetComponent<clsEnemyStandard>().health +
                 " hp remains."
                 ;
-
-            enemies[targetPosition].GetComponent<clsEnemyStandard>().health -= clsPlayerInfo.PI_attack - def;
+            GameObject ParticlesRed = (GameObject)Object.Instantiate(AssetDatabase.LoadAssetAtPath("Assets/Prefabs/ParticlesRed.prefab", typeof(GameObject)));
+            ParticlesRed.gameObject.transform.position = enemies[targetPosition].transform.position;
+            //Debug.Log("Particle System: " + parts);
                 return clsPlayerInfo.PI_attack - def;
             break;
         }
         return 0;
     }
 
+    /// <summary>
+    /// Sets passed List<GameObject> into appropriate positions on the world.
+    /// </summary>
     public void SetEnemies(List<GameObject> listEnemies) {
         Debug.Log("Setting enemies: " + listEnemies);
-        for (int i = 0; i < listEnemies.Count; ++i) {
-            Debug.Log("Enemies[" + i + "] == " + listEnemies[i]);
-        }
+        //for (int i = 0; i < listEnemies.Count; ++i) {Debug.Log("Enemies[" + i + "] == " + listEnemies[i]);}
         enemies = new List<GameObject>();
 
         for (int i = 0; i < listEnemies.Count; ++i) {
@@ -118,6 +121,12 @@ public class CombatController : MonoBehaviour {
             o.transform.rotation = Quaternion.Euler(0, 0, 0);
             o.GetComponent<LookAtConstant>().target = GameObject.FindGameObjectWithTag("CombatCamera");
             enemies.Add(o);
+        }
+
+        //enable highlight on enemy position --------------------------------------
+        for (int i = 0; i < enemies.Count; ++i) {
+            enemies[i].gameObject.GetComponent<clsEnemyStandard>().CreateHighlight(
+                listPositions[i].gameObject.transform.position);
         }
     }
 
@@ -133,15 +142,13 @@ public class CombatController : MonoBehaviour {
 
     public void StartTargetting() {
         isSelectingTarget = true;
-        //enable highlight on enemy position --------------------------------------
-
-
     }
 
     public void SetTarget(int position) {
         if (isSelectingTarget) {
             isSelectingTarget = false;
             targetPosition = position;
+            //for (int i = 0; i < enemies.Count; ++i) {enemies[i].gameObject.GetComponent<clsEnemyStandard>().DestroyHighlight();}
             Attack();
         }
     }
@@ -154,14 +161,17 @@ public class CombatController : MonoBehaviour {
         }
         if (rem == 0) { //all enemies inactive, could be set flag
             Debug.Log(rem + " enemies remain.");
-            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().cullingMask = -1;
-            clsPlayerInfo.PI_experience += 5;
-            clsPlayerInfo.PI_level += 1;
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>().cullingMask = -1; // turn off combat scene mask
+
+            //better exp calc / level up etc --------------------------------------------
+
+            for (int i = 0; i < enemies.Count; ++i) {
+                //Debug.Log("Added XP " + enemies[i].gameObject.GetComponent<clsEnemyStandard>().enemyName);
+                clsPlayerInfo.PI_experience += DictEnemies_Exp.dict[enemies[i].gameObject.GetComponent<clsEnemyStandard>().enemyName];
+            }
+
             DungeonManager.ClearEncounterByCurrent();
-            //DungeonManager.ClearEncounterByIndex(0);
-            //UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(UnityEngine.SceneManagement.SceneManager.GetSceneAt(2));
             UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(UnityEngine.SceneManagement.SceneManager.GetSceneByName("BattleScene"));
-            //UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
     }
 

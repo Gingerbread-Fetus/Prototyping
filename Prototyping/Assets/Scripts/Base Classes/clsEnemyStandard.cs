@@ -11,6 +11,10 @@ public class clsEnemyStandard : MonoBehaviour {
     public int defence;
     public int mana;
 
+    public string enemyName;
+
+    private ParticleSystem ps;
+
     /// <summary>
     /// Deducts health by passed value. Returns true if health falls below 0.
     /// </summary>
@@ -22,21 +26,29 @@ public class clsEnemyStandard : MonoBehaviour {
         return false;
     }
 
-    public void CreateHighlight() {
-        /*
+    public void CreateHighlight(Vector3 highlightAt) {
         if (!highlight.isPlaying) {
-            ParticleSystem ps = Instantiate(highlight);
-            ps.transform.parent = this.gameObject.transform;
+            ps = Instantiate(highlight);
+            ps.transform.position = highlightAt;
+            ps.transform.Translate(new Vector3(0, -0.7f, 0));
             ps.Play();
-            Debug.Log("highlight playing: " + ps);
-            Debug.Log("it is at: " + ps.gameObject.transform.position);
+
+            //Debug.Log("highlight playing: " + ps);
+            //Debug.Log("it is at: " + ps.gameObject.transform.position);
         }
-        */
     }
 
+    public void DestroyHighlight() {
+        GameObject.Destroy(ps);
+    }
+
+    /*
     public void OnMouseEnter() {
         Debug.Log("Mouse Entered");
-        CreateHighlight();
     }
 
+    public void OnMouseExit() {
+        Debug.Log("Mouse Exited");
+    }
+    */
 }

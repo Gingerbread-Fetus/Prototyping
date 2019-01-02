@@ -27,7 +27,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1925283747274266
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,11 +168,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21baece10c8f11840bd0af7677d67277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlight: {fileID: 0}
+  highlight: {fileID: 198201568020894354, guid: 6b26056db1288ca429c3d86fa3ca5dbc,
+    type: 2}
   health: 2
   attack: 1
   defence: 1
   mana: 1
+  enemyName: Argbus
 --- !u!114 &114994449793197380
 MonoBehaviour:
   m_ObjectHideFlags: 1

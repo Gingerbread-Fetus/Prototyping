@@ -122,7 +122,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4252567365585978, guid: 0e4793c6500c63e46b2a0cb4e7d840a0, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -1.292
+      value: 0.017
       objectReference: {fileID: 0}
     - target: {fileID: 4252567365585978, guid: 0e4793c6500c63e46b2a0cb4e7d840a0, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1349,6 +1349,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemies:
   - {fileID: 1525898065411986, guid: 0e4793c6500c63e46b2a0cb4e7d840a0, type: 2}
+  - {fileID: 1925283747274266, guid: 639dfc0ecc857c84a9d3f32f1a07c784, type: 2}
+  - {fileID: 1925283747274266, guid: 639dfc0ecc857c84a9d3f32f1a07c784, type: 2}
 --- !u!4 &397908372 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4252567365585978, guid: 0e4793c6500c63e46b2a0cb4e7d840a0,
@@ -1596,7 +1598,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4843803476083876, guid: 6c59396b1782fae4da9eaf4fee5142c8, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -11.696
+      value: -13.039
       objectReference: {fileID: 0}
     - target: {fileID: 4843803476083876, guid: 6c59396b1782fae4da9eaf4fee5142c8, type: 2}
       propertyPath: m_LocalRotation.x
@@ -3432,7 +3434,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4843803476083876, guid: 639dfc0ecc857c84a9d3f32f1a07c784, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.035
+      value: -5.401
       objectReference: {fileID: 0}
     - target: {fileID: 4843803476083876, guid: 639dfc0ecc857c84a9d3f32f1a07c784, type: 2}
       propertyPath: m_LocalPosition.y
@@ -3440,7 +3442,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4843803476083876, guid: 639dfc0ecc857c84a9d3f32f1a07c784, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -15.67
+      value: -18.176
       objectReference: {fileID: 0}
     - target: {fileID: 4843803476083876, guid: 639dfc0ecc857c84a9d3f32f1a07c784, type: 2}
       propertyPath: m_LocalRotation.x
@@ -4307,7 +4309,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1706937502
 MonoBehaviour:
   m_ObjectHideFlags: 0
