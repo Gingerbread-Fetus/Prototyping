@@ -51,6 +51,7 @@ public class CombatController : MonoBehaviour {
                     CombatLog.text += "\n";
                     CombatLog.text += enemies[targetPosition].name + " has been destroyed.";
                     //enemies.RemoveAt(targetPosition);
+                    enemies[targetPosition].GetComponent<clsEnemyStandard>().DestroyHighlight();
                     enemies[targetPosition].SetActive(false);
                     listPositions[targetPosition].SetActive(false);
                 } break;
@@ -66,6 +67,7 @@ public class CombatController : MonoBehaviour {
                     CombatLog.text += "\n";
                     CombatLog.text += enemies[targetPosition].name + " has been destroyed.";
                     //enemies.RemoveAt(targetPosition);
+                    enemies[targetPosition].GetComponent<clsEnemyStandard>().DestroyHighlight();
                     enemies[targetPosition].SetActive(false);
                     listPositions[targetPosition].SetActive(false);
                 } break;
